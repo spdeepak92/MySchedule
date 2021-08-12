@@ -1,0 +1,37 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Add Event</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="light" (click)="saveEvent()">
+        <ion-icon slot="icon-only" name="checkmark" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-item>
+      <ion-label position="fixed">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="event.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="fixed">Description</ion-label>
+      <ion-textarea rows="2" cols="20" type="text" [(ngModel)]="event.desc"></ion-textarea>
+    </ion-item>
+    <p>{{viewTitle}}</p>
+    <calendar *ngIf="modalReady"
+    [calendarMode]="calendar.mode" 
+    [currentDate]="calendar.currentDate"
+    (onTitleChanged)="onViewTitleChanged($event)" 
+    (onCurrentDateChanged)="onCurrentDateChanged($event)" 
+    [step]="calendar.step"
+    >
+    </calendar>
+    <br>
+    <ion-item>
+      <ion-label position="fixed">Time</ion-label>
+      <ion-datetime [(ngModel)]="eventTime" displayFormat="H:mm"></ion-datetime>
+    </ion-item>
+  </div>
+</ion-content>

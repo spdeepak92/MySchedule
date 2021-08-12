@@ -1,0 +1,116 @@
+ion-header {
+    ion-toolbar {
+        --background: linear-gradient(170deg, rgba(102, 141, 207, 1) 44%, rgba(102, 141, 207, 1) 100%);
+    }
+}
+
+.calenderTop {
+    background: linear-gradient(170deg, rgba(102, 141, 207, 1) 44%, rgba(194, 142, 255, 1) 100%) !important;
+    box-shadow: 1px 6px 20px 0px #c28eff;
+}
+
+.selectedDate {
+    font-weight: 600 !important;
+    background: #ec9d65;
+    box-shadow: 1px 2px 7px 2px #d950de;
+    padding: 10px;
+    margin: 0 auto;
+    border-radius: 50%;
+    height: 85px;
+    width: 85px;
+    color: #fff;
+    .day {
+        font-size: 2em !important;
+    }
+    .month {
+        margin-top: -10px;
+        font-size: 0.8em !important;
+        font-style: italic;
+    }
+}
+
+.nxtDone {
+    h6 {
+        margin: 15px 0px 0px 15px;
+        font-weight: 600;
+    }
+    .nxtDesc {
+        padding-left: 10px;
+        border-left: 1px solid rgb(207, 207, 207);
+    }
+}
+
+.planTodo {
+    h6 {
+        margin: 15px 0px 0px 15px;
+        font-weight: 600;
+    }
+    ion-label {
+        font-size: 0.9em !important;
+    }
+}
+
+.taskDesc {
+    font-size: 0.8em;
+}
+
+.totalPlans {
+    font-size: 0.7em;
+    margin: 0 auto !important;
+    color: #fff;
+}
+
+.with-event {
+    background-color: var(--ion-color-primary);
+    border-radius: 15px;
+}
+
+.selectDate {
+    ion-item {
+        border-radius: 5px;
+        ion-label {
+            font-weight: 600;
+        }
+    }
+}
+
+:host ::ng-deep {
+    table {
+        font-size: 0.8rem !important;
+        letter-spacing: 0.5px !important;
+        border: none !important;
+    }
+
+    tbody {
+        font-size: 0.7rem !important;
+        border: none !important;
+    }
+
+    tr,
+    th,
+    td {
+        border: none !important;
+        color: #fff !important;
+        white-space: pre;
+    }
+
+    .monthview-container {
+        height: auto !important;
+    }
+
+    .monthview-current {
+        border-radius: 10%;
+        background: #ec9d65 !important;
+        color: #fff !important;
+    }
+
+    .monthview-selected {
+        border-radius: 10%;
+        background: #ffff !important;
+        color: #ec9d65 !important;
+    }
+
+    .event-detail-container {
+        display: none;
+    }
+}

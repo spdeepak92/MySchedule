@@ -1,0 +1,119 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-icon name="menu-sharp" color="light" size="large"></ion-icon>
+    </ion-buttons>
+    <ion-title color="light">My Schedule</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="page('first')">
+        <ion-icon slot="icon-only" name="calendar" [color]="currentPage==='first'?'primary':'light'"></ion-icon>
+      </ion-button>
+      <ion-button (click)="page('second')">
+        <ion-icon slot="icon-only" name="layers-outline" [color]="currentPage==='second'?'primary':'light'">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngIf="currentPage==='first'">
+
+    <ion-row class="calenderTop ion-align-items-center">
+      <ion-col size="8" class="ion-no-padding ion-padding-bottom">
+        <calendar [eventSource]="eventSource" [calendarMode]="calendar.mode" [currentDate]="calendar.currentDate"
+          (onCurrentDateChanged)="onCurrentDateChanged($event)" step="30">
+        </calendar>
+      </ion-col>
+      <ion-col class="ion-text-center">
+        <div class="selectedDate">
+          <p class="ion-no-margin day">{{selectedDate | date:'d'}}</p>
+          <p class="ion-no-margin month">{{selectedDate | date:'MMM'}}</p>
+        </div>
+        <br>
+        <p class="totalPlans" *ngIf="displayEvents.length>0 || nearEvent.length>0">{{total}}&nbsp;plan
+          <span *ngIf="calendar.currentDate===selectedDate">today</span>
+        </p>
+      </ion-col>
+    </ion-row>
+    <br>
+
+    <ion-card class="nxtDone">
+      <h6>Next to be done</h6>
+      <ion-card-content>
+        <ion-row *ngIf="nearEvent.length>0">
+          <ion-col size="3" class="ion-text-center">
+            <p>{{nearEvent[0].startTime | date:'EEE'}}</p>
+            <p>{{nearEvent[0].startTime | date:'h:mm a'}}</p>
+          </ion-col>
+          <ion-col class="nxtDesc">
+            <p><b>{{nearEvent[0].title}}</b></p>
+            <p>{{nearEvent[0].desc}}</p>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="planTodo">
+      <h6>Plan to do<span *ngIf="(displayEvents.length-1)>0">({{displayEvents.length-1}})</span></h6>
+      <ion-card-content *ngIf="displayEvents.length>0;else emptyEvents">
+        <ion-list>
+
+          <ng-container *ngFor="let event of displayEvents">
+            <ion-item lines="full" *ngIf="event.timestamp">
+              <ion-icon slot="start" name="infinite-outline" color="primary"></ion-icon>
+              <ion-label>
+                <p><b>{{event.title}}</b></p>
+                <p class="taskDesc">{{event.desc}}</p>
+              </ion-label>
+              <ion-note slot="end">{{event.startTime | date:'shortTime'}}</ion-note>
+            </ion-item>
+          </ng-container>
+
+        </ion-list>
+      </ion-card-content>
+      <ng-template #emptyEvents>
+        <ion-card-content class="ion-text-center">
+          <p><i>No Tasks</i></p>
+        </ion-card-content>
+      </ng-template>
+
+    </ion-card>
+
+  </div>
+
+  <div *ngIf="currentPage==='second'">
+    <div class="calenderTop">
+      <ion-row class="selectDate">
+        <ion-col>
+          <ion-item>
+            <ion-label>Select Date</ion-label>
+            <ion-datetime displayFormat="DD, MMMM" [(ngModel)]="accMonth" (ionChange)="filterEvents()"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="selectedEvents.length>0">
+      <ion-card *ngFor="let event of selectedEvents">
+        <ion-card-content class="ion-no-padding">
+          <ion-item lines="none">
+            <ion-icon slot="start" name="infinite-outline" color="primary"></ion-icon>
+            <ion-label>
+              <p><b>{{event.title}}</b></p>
+              <p class="taskDesc">{{event.desc}}</p>
+            </ion-label>
+            <ion-note slot="end">{{event.startTime | date:'shortTime'}}</ion-note>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)='addEvent()'>
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>
